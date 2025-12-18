@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <%- include('partials/header') %>
+        <title>
+            <%= title %>
+        </title>
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+
+        <main class="products-page">
+            <div class="products-header">
+                <h1 class="page-title">Nos <span class="accent">Produits</span></h1>
+                <p class="page-subtitle">Explorez notre catalogue de pièces moto premium</p>
+            </div>
+
+            <div class="products-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <form action="/products" method="GET" class="filters-form">
+                        <div class="filter-group">
+                            <label for="search" class="filter-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="M21 21l-4.35-4.35" />
+                                </svg>
+                                Rechercher
+                            </label>
+                            <input type="text" id="search" name="search" class="filter-input"
+                                placeholder="Nom du produit..." value="<%= filters.search %>">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="category" class="filter-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7" />
+                                    <rect x="14" y="3" width="7" height="7" />
+                                    <rect x="14" y="14" width="7" height="7" />
+                                    <rect x="3" y="14" width="7" height="7" />
+                                </svg>
+                                Catégorie
+                            </label>
+                            <select id="category" name="category" class="filter-select">
+                                <option value="all" <%=filters.category==='all' ? 'selected' : '' %>>Toutes les
+                                    catégories</option>
+                                <% categories.forEach(cat=> { %>
+                                    <option value="<%= cat %>" <%=filters.category===cat ? 'selected' : '' %>><%= cat %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="color" class="filter-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 2a10 10 0 0 1 0 20" />
+                                </svg>
+                                Couleur
+                            </label>
+                            <select id="color" name="color" class="filter-select">
+                                <option value="all" <%=filters.color==='all' ? 'selected' : '' %>>Toutes les couleurs
+                                </option>
+                                <% colors.forEach(col=> { %>
+                                    <option value="<%= col %>" <%=filters.color===col ? 'selected' : '' %>><%= col %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-filter">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46" />
+                            </svg>
+                            Filtrer
+                        </button>
+
+                        <% if (filters.search || filters.category !=='all' || filters.color !=='all' ) { %>
+                            <a href="/products" class="btn btn-reset">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                    <path d="M3 3v5h5" />
+                                </svg>
+                                Réinitialiser
+                            </a>
+                            <% } %>
+                    </form>
+                </aside>
+
+                <!-- Products Grid -->
+                <section class="products-content">
+                    <div class="products-count">
+                        <span class="count-number">
+                            <%= products.length %>
+                        </span> produit<%= products.length> 1 ? 's' : '' %> trouvé<%= products.length> 1 ? 's' : '' %>
+                    </div>
+
+                    <% if (products.length===0) { %>
+                        <div class="no-products">
+                            <div class="no-products-icon">🔍</div>
+                            <h2>Aucun produit trouvé</h2>
+                            <p>Essayez de modifier vos critères de recherche</p>
+                            <a href="/products" class="btn btn-primary">Voir tous les produits</a>
+                        </div>
+                        <% } else { %>
+                            <div class="products-grid">
+                                <% products.forEach(product=> { %>
+                                    <article class="product-card">
+                                        <div class="product-image">
+                                            <% if (product.image) { %>
+                                                <img src="<%= product.image %>" alt="<%= product.name %>"
+                                                    class="product-img"
+                                                    onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'product-placeholder\'><svg width=\'48\' height=\'48\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\' ry=\'2\' /><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\' /><polyline points=\'21,15 16,10 5,21\' /></svg></div>'">
+                                                <% } else { %>
+                                                    <div class="product-placeholder">
+                                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="1.5">
+                                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                                            <circle cx="8.5" cy="8.5" r="1.5" />
+                                                            <polyline points="21,15 16,10 5,21" />
+                                                        </svg>
+                                                    </div>
+                                                    <% } %>
+                                                        <div class="product-category-badge">
+                                                            <%= product.category %>
+                                                        </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h3 class="product-name">
+                                                <%= product.name %>
+                                            </h3>
+                                            <p class="product-description">
+                                                <%= product.description %>
+                                            </p>
+                                            <div class="product-meta">
+                                                <span class="product-color">
+                                                    <span
+                                                        class="color-dot color-<%= product.color.toLowerCase() %>"></span>
+                                                    <%= product.color %>
+                                                </span>
+                                            </div>
+                                            <div class="product-footer">
+                                                <span class="product-price">
+                                                    <%= product.price.toFixed(2) %> €
+                                                </span>
+                                                <button class="btn btn-add">
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2">
+                                                        <circle cx="9" cy="21" r="1" />
+                                                        <circle cx="20" cy="21" r="1" />
+                                                        <path
+                                                            d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <% }) %>
+                            </div>
+                            <% } %>
+                </section>
+            </div>
+        </main>
+
+        <%- include('partials/footer') %>
+</body>
+
+</html>

@@ -11,6 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const indexRoutes = require("./routes/index.routes");
+const productRoutes = require("./routes/product.routes");
+
 app.use("/", indexRoutes);
+app.use("/products", productRoutes);
 
 module.exports = app;
+

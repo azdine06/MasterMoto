@@ -1,10 +1,82 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <title><%= title %></title>
+  <%- include('partials/header') %>
+    <title>
+      <%= title %>
+    </title>
 </head>
+
 <body>
-  <h1>Bienvenue sur MasterMoto 🚀</h1>
+  <%- include('partials/navbar') %>
+
+    <main class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">🏍️ Performance & Style</div>
+        <h1 class="hero-title">
+          Pièces Moto <span class="hero-accent">Premium</span>
+        </h1>
+        <p class="hero-description">
+          Découvrez notre sélection de pièces de haute qualité pour sublimer
+          et optimiser votre moto. Des composants racing aux accessoires design.
+        </p>
+        <div class="hero-cta">
+          <a href="/products" class="btn btn-primary">
+            <span>Voir les produits</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Produits</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Marques</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">24h</span>
+            <span class="stat-label">Livraison</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-glow"></div>
+        <div class="hero-rings">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+        </div>
+      </div>
+    </main>
+
+    <section class="features">
+      <div class="features-container">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Performance Racing</h3>
+          <p>Pièces optimisées pour des performances maximales sur circuit et route.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔧</div>
+          <h3>Qualité Premium</h3>
+          <p>Composants de grandes marques avec garantie constructeur.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>Livraison Express</h3>
+          <p>Expédition sous 24h pour recevoir vos pièces rapidement.</p>
+        </div>
+      </div>
+    </section>
+
+    <%- include('partials/footer') %>
 </body>
+
 </html>

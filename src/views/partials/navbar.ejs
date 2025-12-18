@@ -1,0 +1,42 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="/" class="navbar-brand">
+            <svg class="navbar-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" stroke="url(#logoGrad)" stroke-width="3" fill="none" />
+                <path d="M14 28C14 28 18 20 24 20C30 20 34 28 34 28" stroke="url(#logoGrad)" stroke-width="3"
+                    stroke-linecap="round" />
+                <circle cx="17" cy="30" r="4" fill="url(#logoGrad)" />
+                <circle cx="31" cy="30" r="4" fill="url(#logoGrad)" />
+                <path d="M22 16L24 12L26 16" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <defs>
+                    <linearGradient id="logoGrad" x1="0" y1="0" x2="48" y2="48">
+                        <stop offset="0%" stop-color="#ff4d4d" />
+                        <stop offset="100%" stop-color="#ff8533" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span class="navbar-brand-text">Master<span class="brand-accent">Moto</span></span>
+        </a>
+
+
+
+        <div class="navbar-search-container">
+            <form action="/products" method="GET" class="navbar-search">
+                <button type="submit" class="search-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" name="search" class="search-input" placeholder="Rechercher une pièce...">
+            </form>
+        </div>
+
+        <ul class="navbar-nav">
+            <li><a href="/" class="nav-link">Accueil</a></li>
+            <li><a href="/products" class="nav-link">Produits</a></li>
+            <li><a href="/products/add" class="nav-link">Ajouter un produit</a></li>
+        </ul>
+    </div>
+</nav>
