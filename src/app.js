@@ -12,9 +12,11 @@ app.use(express.json());
 
 const indexRoutes = require("./routes/index.routes");
 const productRoutes = require("./routes/product.routes");
+const authRoutes = require("./routes/auth.routes");
 
 app.use("/", indexRoutes);
 app.use("/products", productRoutes);
+app.use("/auth", authRoutes);
 
 module.exports = app;
 
