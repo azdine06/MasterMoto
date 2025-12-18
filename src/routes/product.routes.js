@@ -11,4 +11,12 @@ router.get("/add", productController.showAddForm);
 // POST /products/add - Créer un nouveau produit
 router.post("/add", upload.single("image"), productController.createProduct);
 
+// GET /products/edit/:id - Afficher le formulaire de modification
+router.get("/edit/:id", productController.showEditForm);
+// POST /products/edit/:id - Modifier un produit
+router.post("/edit/:id", upload.single("image"), productController.updateProduct);
+
+// POST /products/delete/:id - Supprimer un produit
+router.post("/delete/:id", productController.deleteProduct);
+
 module.exports = router;

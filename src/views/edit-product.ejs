@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <%- include('partials/header') %>
+        <title>
+            <%= title %>
+        </title>
+</head>
+
+<body>
+    <%- include('partials/navbar') %>
+
+        <main class="add-product-page">
+            <div class="add-product-container">
+                <div class="add-product-header">
+                    <h1 class="page-title">Modifier le <span class="accent">Produit</span></h1>
+                    <p class="page-subtitle">Modifiez les informations ci-dessous pour mettre à jour le produit</p>
+                </div>
+
+                <form action="/products/edit/<%= product._id %>" method="POST" class="product-form"
+                    enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <!-- Nom du produit -->
+                        <div class="form-group full-width">
+                            <label for="name" class="form-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M20 7h-9M14 17H5M17 12h-7" />
+                                    <circle cx="5" cy="7" r="2" />
+                                    <circle cx="19" cy="17" r="2" />
+                                    <circle cx="12" cy="12" r="2" />
+                                </svg>
+                                Nom du produit
+                                <span class="required">*</span>
+                            </label>
+                            <input type="text" id="name" name="name" class="form-input" value="<%= product.name %>"
+                                required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group full-width">
+                            <label for="description" class="form-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14,2 14,8 20,8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <polyline points="10,9 9,9 8,9" />
+                                </svg>
+                                Description
+                            </label>
+                            <textarea id="description" name="description" class="form-textarea"
+                                rows="4"><%= product.description %></textarea>
+                        </div>
+
+                        <!-- Catégorie -->
+                        <div class="form-group">
+                            <label for="category" class="form-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7" />
+                                    <rect x="14" y="3" width="7" height="7" />
+                                    <rect x="14" y="14" width="7" height="7" />
+                                    <rect x="3" y="14" width="7" height="7" />
+                                </svg>
+                                Catégorie
+                                <span class="required">*</span>
+                            </label>
+                            <select id="category" name="category" class="form-select" required>
+                                <option value="Moteur" <%=product.category==='Moteur' ? 'selected' : '' %>>Moteur
+                                </option>
+                                <option value="Freinage" <%=product.category==='Freinage' ? 'selected' : '' %>>Freinage
+                                </option>
+                                <option value="Électrique" <%=product.category==='Électrique' ? 'selected' : '' %>
+                                    >Électrique</option>
+                                <option value="Carrosserie" <%=product.category==='Carrosserie' ? 'selected' : '' %>
+                                    >Carrosserie</option>
+                                <option value="Échappement" <%=product.category==='Échappement' ? 'selected' : '' %>
+                                    >Échappement</option>
+                                <option value="Suspension" <%=product.category==='Suspension' ? 'selected' : '' %>
+                                    >Suspension</option>
+                            </select>
+                        </div>
+
+                        <!-- Couleur -->
+                        <div class="form-group">
+                            <label for="color" class="form-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M12 2a10 10 0 0 1 0 20" />
+                                </svg>
+                                Couleur
+                                <span class="required">*</span>
+                            </label>
+                            <select id="color" name="color" class="form-select" required>
+                                <option value="Noir" <%=product.color==='Noir' ? 'selected' : '' %>>Noir</option>
+                                <option value="Rouge" <%=product.color==='Rouge' ? 'selected' : '' %>>Rouge</option>
+                                <option value="Chrome" <%=product.color==='Chrome' ? 'selected' : '' %>>Chrome</option>
+                                <option value="Bleu" <%=product.color==='Bleu' ? 'selected' : '' %>>Bleu</option>
+                                <option value="Or" <%=product.color==='Or' ? 'selected' : '' %>>Or</option>
+                            </select>
+                        </div>
+
+                        <!-- Prix -->
+                        <div class="form-group">
+                            <label for="price" class="form-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                                Prix (€)
+                                <span class="required">*</span>
+                            </label>
+                            <input type="number" id="price" name="price" class="form-input" value="<%= product.price %>"
+                                step="0.01" min="0" required>
+                        </div>
+
+                        <!-- Image URL (optionnel) -->
+                        <div class="form-group">
+                            <label for="image" class="form-label">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                    <polyline points="21,15 16,10 5,21" />
+                                </svg>
+                                Nouvelle image (optionnel)
+                                <span class="text-sm text-gray-500 font-normal ml-2">(Laisser vide pour conserver
+                                    l'actuelle)</span>
+                            </label>
+                            <input type="file" id="image" name="image" class="form-input file-input" accept="image/*">
+                            <% if (product.image) { %>
+                                <div style="margin-top: 10px;">
+                                    <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 5px;">
+                                        Image actuelle :</p>
+                                    <img src="<%= product.image %>" alt="Image actuelle"
+                                        style="max-width: 100px; border-radius: 4px; border: 1px solid var(--color-border);">
+                                </div>
+                                <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Boutons d'action -->
+                    <div class="form-actions">
+                        <a href="/products" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7" />
+                            </svg>
+                            Annuler
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                                <polyline points="17,21 17,13 7,13 7,21" />
+                                <polyline points="7,3 7,8 15,8" />
+                            </svg>
+                            Mettre à jour
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </main>
+
+        <%- include('partials/footer') %>
+</body>
+
+</html>

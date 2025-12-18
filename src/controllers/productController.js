@@ -96,10 +96,106 @@ const createProduct = async (req, res) => {
     }
 };
 
+/**
+ * Affiche le formulaire de modification
+ * @route GET /products/edit/:id
+ */
+const showEditForm = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).render("error", {
+                title: "Produit non trouvé",
+                message: "Le produit demandé n'existe pas."
+            });
+        }
+
+        res.render("edit-product", {
+            title: `Modifier ${product.name} - MasterMoto`,
+            product
+        });
+    } catch (error) {
+        console.error("Erreur lors de l'affichage du formulaire de modification:", error);
+        res.status(500).render("error", {
+            title: "Erreur",
+            message: "Erreur lors du chargement du produit"
+        });
+    }
+};
+
+/**
+ * Modifie un produit existant
+ * @route POST /products/edit/:id
+ */
+const updateProduct = async (req, res) => {
+    try {
+        const { name, description, category, color, price } = req.body;
+        const productId = req.params.id;
+
+        const product = await Product.findById(productId);
+        if (!product) {
+            return res.status(404).render("error", {
+                title: "Produit non trouvé",
+                message: "Le produit que vous essayez de modifier n'existe pas."
+            });
+        }
+
+        // Mise à jour des champs
+        product.name = name;
+        product.description = description;
+        product.category = category;
+        product.color = color;
+        product.price = price;
+
+        // Mise à jour de l'image si une nouvelle est uploadée
+        if (req.file) {
+            product.image = "/uploads/" + req.file.filename;
+        }
+
+        await product.save();
+
+        res.redirect("/products");
+    } catch (error) {
+        console.error("Erreur lors de la modification du produit:", error);
+        res.status(500).render("error", {
+            title: "Erreur",
+            message: "Erreur lors de la modification du produit"
+        });
+    }
+};
+
+/**
+ * Supprime un produit
+ * @route POST /products/delete/:id
+ */
+const deleteProduct = async (req, res) => {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.id);
+
+        if (!product) {
+            return res.status(404).render("error", {
+                title: "Produit non trouvé",
+                message: "Le produit que vous essayez de supprimer n'existe pas."
+            });
+        }
+
+        res.redirect("/products");
+    } catch (error) {
+        console.error("Erreur lors de la suppression du produit:", error);
+        res.status(500).render("error", {
+            title: "Erreur",
+            message: "Erreur lors de la suppression du produit"
+        });
+    }
+};
+
 module.exports = {
     getAllProducts,
     showAddForm,
     createProduct,
+    showEditForm,
+    updateProduct,
+    deleteProduct,
     CATEGORIES,
     COLORS
 };
